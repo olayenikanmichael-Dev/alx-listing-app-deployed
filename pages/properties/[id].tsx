@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PropertyDetail from "@/components/property/PropertyDetail";
 
+
 export default function PropertyDetailPage() {
   const router = useRouter();
   const { id } = router.query;

@@ -1,25 +1,40 @@
 import { useEffect, useState } from "react";
-import api from "@/lib/api";
 import PropertyCard from "@/components/property/PropertyCard";
-
-interface Property {
-  id: string;
-  title: string;
-  price: number;
-  location: string;
-  image: string;
-}
+import { PropertyProps, PROPERTYLISTINGSAMPLE } from "@/constants";
+import api from "@/lib/api";
 
 export default function Home() {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [properties, setProperties] = useState<PropertyProps[]>(PROPERTYLISTINGSAMPLE);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProperties = async () => {
+      setLoading(true);
       try {
         const response = await api.get("/properties");
-        setProperties(response.data);
+
+        // Transform API response to PropertyProps
+        const formatted: PropertyProps[] = response.data.map((item: any) => ({
+          name: item.title ?? "Unnamed Property",
+          address: {
+            state: item.state ?? "",
+            city: item.city ?? "",
+            country: item.country ?? "",
+          },
+          rating: item.rating ?? 0,
+          category: item.category ?? [],
+          price: item.price ?? 0,
+          offers: {
+            bed: item.bed ?? "0",
+            shower: item.shower ?? "0",
+            occupants: item.occupants ?? "",
+          },
+          image: item.image ?? "",
+          discount: item.discount ?? "",
+        }));
+
+        setProperties(formatted);
       } catch (err) {
         setError("Failed to load properties.");
       } finally {
@@ -36,7 +51,7 @@ export default function Home() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {properties.map((property) => (
-        <PropertyCard key={property.id} property={property} />
+        <PropertyCard key={property.name} property={property} />
       ))}
     </div>
   );

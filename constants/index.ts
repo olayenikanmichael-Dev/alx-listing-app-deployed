@@ -1,3 +1,4 @@
+
 export interface Address {
   state: string;
   city: string;
@@ -21,9 +22,7 @@ export interface PropertyProps {
   discount: string;
 }
 
-// Use string path for public images
-export const HERO_IMAGE = "/hero.jpg";
-
+// Optional: sample properties for testing
 export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
   {
     name: "Villa Ocean Breeze",
@@ -45,5 +44,4 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
     image: "https://example.com/image2.jpg",
     discount: "30",
   },
-  // ...other sample properties
 ];

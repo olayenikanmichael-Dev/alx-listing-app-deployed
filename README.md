@@ -1,40 +1,150 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
-## Getting Started
+# ALX Listing App
 
-First, run the development server:
+[Live Demo](https://vercel.com/olayenikanmichael-devs-projects/alx-listing-app-deployed/6gv8GyXAEvVfK1GPZw3AsUZk6uRv)
+
+---
+
+## Table of Contents
+
+* [Overview](#overview)
+* [Features](#features)
+* [Technologies Used](#technologies-used)
+* [Folder Structure](#folder-structure)
+* [Installation](#installation)
+* [Usage](#usage)
+* [API](#api)
+* [Contributing](#contributing)
+* [License](#license)
+
+---
+
+## Overview
+
+ALX Listing App is a modern real estate listing application built with **Next.js 16**, **TypeScript**, and **Tailwind CSS**. The app allows users to browse, view details, and explore properties in a clean and responsive interface.
+
+It integrates **API data fetching**, **client-side rendering**, and **fully typed components** to provide a robust and scalable solution.
+
+---
+
+## Features
+
+* Browse a list of properties displayed in a responsive grid.
+* View detailed property information, including address, amenities, rating, and pricing.
+* Fully typed with **TypeScript** to ensure type safety.
+* Responsive design using **Tailwind CSS**.
+* API fetching with **Axios**.
+* Error handling and loading states for better UX.
+
+---
+
+## Technologies Used
+
+* [Next.js 16 (Turbopack)](https://nextjs.org/) – React framework with SSR and static site generation
+* [TypeScript](https://www.typescriptlang.org/) – Type safety and autocompletion
+* [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework
+* [Axios](https://axios-http.com/) – API client for fetching property data
+* [Vercel](https://vercel.com/) – Deployment platform
+
+---
+
+## Folder Structure
+
+```
+src/
+ ├─ constants/
+ │   └─ index.ts        # Types and sample property data
+ ├─ components/
+ │   └─ property/
+ │       ├─ PropertyCard.tsx
+ │       └─ PropertyDetail.tsx
+ ├─ pages/
+ │   ├─ index.tsx       # Home page listing properties
+ │   └─ properties/
+ │       └─ [id].tsx    # Property detail page
+ └─ lib/
+     └─ api.ts          # Axios API configuration
+```
+
+---
+
+## Installation
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/olayenikanmichael-Dev/alx-listing-app-deployed.git
+cd alx-listing-app-deployed
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Run the development server:**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+---
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Usage
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+* Browse properties on the home page.
+* Click on a property to view detailed information.
+* The app fetches data from a local API route (`/api/properties`) or external API if configured.
+* Loading and error states are displayed for better user experience.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## API
 
-To learn more about Next.js, take a look at the following resources:
+The project uses a Next.js API route to serve property data. Sample route:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+```
+GET /api/properties
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Response:
 
-## Deploy on Vercel
+```json
+[
+  {
+    "name": "Villa Ocean Breeze",
+    "address": {
+      "state": "Seminyak",
+      "city": "Bali",
+      "country": "Indonesia"
+    },
+    "rating": 4.89,
+    "category": ["Luxury Villa", "Pool", "Free Parking"],
+    "price": 3200,
+    "offers": { "bed": "3", "shower": "3", "occupants": "4-6" },
+    "image": "https://example.com/image1.jpg",
+    "discount": ""
+  }
+]
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/my-feature`.
+3. Make changes and commit: `git commit -m "Add new feature"`.
+4. Push to your branch: `git push origin feature/my-feature`.
+5. Open a Pull Request.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---

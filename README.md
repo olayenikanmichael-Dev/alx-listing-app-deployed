@@ -1,4 +1,3 @@
-
 # ALX Listing App
 
 [Live Demo](https://vercel.com/olayenikanmichael-devs-projects/alx-listing-app-deployed/6gv8GyXAEvVfK1GPZw3AsUZk6uRv)

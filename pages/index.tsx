@@ -1,66 +1,55 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import PropertyCard from "@/components/property/PropertyCard";
-import { PropertyProps, PROPERTYLISTINGSAMPLE } from "@/constants";
-import axios from "axios";
+
+interface Property {
+    id: number;
+    title: string;
+    price: number;
+    location: string;
+    image: string;
+    description: string;
+}
+
+// export interface Property {
+//     id: number;
+//     title: string;
+//     price: number;
+//     description: string;
+// }
 
 export default function Home() {
-  const [properties, setProperties] = useState<PropertyProps[]>(PROPERTYLISTINGSAMPLE);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+    const [properties, setProperties] = useState<Property[]>([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProperties = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get("/api/properties"); // your Next.js API route
+    useEffect(() => {
+        const fetchProperties = async () => {
+            try {
+                const response = await axios.get("/api/properties");
+                setProperties(response.data);
+            } catch (error) {
+                console.error("Error fetching properties:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        // Transform API data to PropertyProps
-        const formatted: PropertyProps[] = response.data.map((item: any) => ({
-          name: item.title ?? "Unnamed Property",
-          address: {
-            state: item.state ?? "",
-            city: item.city ?? "",
-            country: item.country ?? "",
-          },
-          rating: item.rating ?? 0,
-          category: item.category ?? [],
-          price: item.price ?? 0,
-          offers: {
-            bed: item.bed ?? "0",
-            shower: item.shower ?? "0",
-            occupants: item.occupants ?? "",
-          },
-          image: item.image ?? "",
-          discount: item.discount ?? "",
-        }));
+        fetchProperties();
+    }, []);
 
-        setProperties(formatted);
-        setError("");
-      } catch (err) {
-        console.error("Error fetching properties:", err);
-        setError("Failed to load properties.");
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-lg font-semibold">Loading properties...</p>
+            </div>
+        );
+    }
 
-    fetchProperties();
-  }, []);
-
-  if (loading) return <p className="text-center mt-10">Loading properties...</p>;
-  if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
-
-  return (
-    <div className="container mx-auto px-4 py-6">
-      {properties.length === 0 ? (
-        <p className="text-center text-gray-500">No properties available.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {properties.map((property) => (
-            <PropertyCard key={property.name} property={property} />
-          ))}
+    return (
+        <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {properties.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+            ))}
         </div>
-      )}
-    </div>
-  );
+    );
 }

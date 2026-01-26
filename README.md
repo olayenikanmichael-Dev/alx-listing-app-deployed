@@ -17,7 +17,7 @@
 * [License](#license)
 
 ---
-
+listing app
 ## Overview
 
 ALX Listing App is a modern real estate listing application built with **Next.js 16**, **TypeScript**, and **Tailwind CSS**. The app allows users to browse, view details, and explore properties in a clean and responsive interface.
